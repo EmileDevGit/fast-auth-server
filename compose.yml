@@ -1,0 +1,20 @@
+services:
+  app:
+    image: fast-auth:dev
+    build:
+      context: .
+      target: dev
+    env_file: ".env"
+    develop:
+      watch:
+        - action: sync
+          path: ./src/app
+          target: /src/app
+          ignore: 
+            - __pycache__
+        - action: rebuild
+          path: ./Dockerfile
+        - action: rebuild
+          path: ./requirements/
+    ports: 
+      - "8000:8000"
